@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.learn.micronaut
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: gradle_kotlin
+features: [ annotation-api, app-name, consul, data, data-jpa, discovery-consul, gradle, http-client, jdbc-hikari, kotest, kotlin, kotlin-application, kotlin-build, kotlin-extension-functions, management, micronaut-build, netty-server, openapi, postgres, problem-json, readme, shade, slf4j-simple, testcontainers, yaml ]
