@@ -1,17 +1,16 @@
 package com.learn.micronaut.entity
 
+import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 
-@Entity
+@MappedEntity("books")
 data class Book(
     val title: String,
     val numOfPages: Int,
     val author: String,
     val isbn: String,
     val yearPublished: Int,
-    @Id @GeneratedValue val id: UUID? = null,
+    @field:Id val id: UUID? = UUID.randomUUID(),
 )
 
