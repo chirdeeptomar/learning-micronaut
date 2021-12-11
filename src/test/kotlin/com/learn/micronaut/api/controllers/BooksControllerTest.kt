@@ -12,28 +12,33 @@ import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.kotlin.http.retrieveList
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @MicronautTest
-class BooksControllerTest(@Client("/") private val httpClient: HttpClient) : StringSpec({
+class BooksControllerTest(@Client("/") private val httpClient: HttpClient) :
+    StringSpec({
 
-    val client = httpClient.toBlocking()
+        val client = httpClient.toBlocking()
 
-    "Add a book" {
-        val request = CreateBookRequest(
-            "Test Book",
-            12,
-            "Test",
-            "8312083jJjljlk",
-            2021
-        )
-        val response = client.exchange(POST("/api/v1/books", request), CreateBookRequest::class.java)
-        response.status shouldBe HttpStatus.CREATED
-    }
+        "Add a book" {
+            val request = CreateBookRequest(
+                "Test Book",
+                12,
+                "Test",
+                "8312083jJjljlk",
+                2021
+            )
+
+            withContext(Dispatchers.IO) {
+                val response = client.exchange(POST("/api/v1/books", request), CreateBookRequest::class.java)
+                response.status shouldBe HttpStatus.CREATED
+            }
+        }
 
 
-    "Get all books" {
-        val response = client.retrieveList<Book>(GET("/api/v1/books"))
-        response.size shouldBeExactly 1
-    }
-})
-
+        "Get all books" {
+            val response = client.retrieveList<Book>(GET("/api/v1/books"))
+            response.size shouldBeExactly 1
+        }
+    })

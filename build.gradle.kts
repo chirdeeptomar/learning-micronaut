@@ -41,6 +41,7 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC2")
 
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.slf4j:slf4j-simple")
