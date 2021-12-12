@@ -8,15 +8,16 @@ import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
+import javax.validation.Valid
 
 @Controller("/api/v1/books")
-class BooksController(private val service: BookService) {
+open class BooksController(private val service: BookService) {
 
     @Get("/")
     fun getBooks(): Iterable<Book> = service.getBooks()
 
     @Post("/")
-    fun createBook(@Body createBookRequest: CreateBookRequest): HttpResponse<Book>? {
+    open fun createBook(@Valid @Body createBookRequest: CreateBookRequest): HttpResponse<Book>? {
         val book = service.createBook(createBookRequest)
         return HttpResponse.created(book)
     }
