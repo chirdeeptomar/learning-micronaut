@@ -14,7 +14,10 @@ import javax.validation.Valid
 open class BooksController(private val service: BookService) {
 
     @Get("/")
-    fun getBooks(): Iterable<Book> = service.getBooks()
+    suspend fun getBooks(): Iterable<Book> {
+        println("Controller Running on: ${Thread.currentThread().name}")
+        return service.getBooks()
+    }
 
     @Post("/")
     open fun createBook(@Valid @Body createBookRequest: CreateBookRequest): HttpResponse<Book>? {

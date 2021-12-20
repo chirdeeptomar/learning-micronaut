@@ -4,11 +4,20 @@ import com.learn.micronaut.api.requests.CreateBookRequest
 import com.learn.micronaut.entity.Book
 import com.learn.micronaut.repository.BookRepository
 import jakarta.inject.Singleton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Singleton
 class BookService(private val repository: BookRepository) {
 
-    fun getBooks(): Iterable<Book> = repository.findAll()
+    suspend fun getBooks(): Iterable<Book> {
+        println("Service Running on: ${Thread.currentThread().name}")
+
+        return withContext(Dispatchers.IO) {
+            println("Repository Running on: ${Thread.currentThread().name}")
+            repository.findAll()
+        }
+    }
 
     fun createBook(createBookRequest: CreateBookRequest): Book {
         val book = Book(
