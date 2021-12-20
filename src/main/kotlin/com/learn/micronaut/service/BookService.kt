@@ -19,7 +19,7 @@ class BookService(private val repository: BookRepository) {
         }
     }
 
-    fun createBook(createBookRequest: CreateBookRequest): Book {
+    suspend fun createBook(createBookRequest: CreateBookRequest): Book {
         val book = Book(
             createBookRequest.title,
             createBookRequest.numOfPages,
@@ -27,6 +27,9 @@ class BookService(private val repository: BookRepository) {
             createBookRequest.isbn,
             createBookRequest.yearPublished
         )
-        return repository.save(book)
+
+        return withContext(Dispatchers.IO) {
+            repository.save(book)
+        }
     }
 }

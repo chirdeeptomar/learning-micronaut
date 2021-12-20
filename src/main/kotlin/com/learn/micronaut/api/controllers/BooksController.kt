@@ -20,7 +20,7 @@ open class BooksController(private val service: BookService) {
     }
 
     @Post("/")
-    open fun createBook(@Valid @Body createBookRequest: CreateBookRequest): HttpResponse<Book>? {
+    open suspend fun createBook(@Valid @Body createBookRequest: CreateBookRequest): HttpResponse<Book>? {
         val book = service.createBook(createBookRequest)
         return HttpResponse.created(book)
     }
